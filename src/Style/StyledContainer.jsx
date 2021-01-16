@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components'
 
 export const StyledContainer = styled.div`
 
-${({isLogedIn}) => isLogedIn &&
+${({isToken}) => isToken &&
     css`
     display: flex; 
     .main-content{

@@ -12,21 +12,23 @@ import LandingPage from './pages/LandingPage';
 
 
 function App() {
-  const [isLogedIn, setIsLogedIn] = useState(false)  
+  const [isToken, setIsToken] = useState(Boolean)  
   const [userObj, setUserObj] = useState({})
-  const history = useHistory()
   const token = localStorage.getItem("USERTOKEN")
+  const history = useHistory()
 
-  useEffect(()=>{
-    console.log(token)
-     if(!isLogedIn) history.push()
-  })
-
+  useEffect(()=>{ 
+    if(token){
+      console.log(token)
+        setIsToken(true)
+    }
+    
+}, [setIsToken])
 
   return (
-    <StyledContainer isLogedIn={isLogedIn}>
-      <UserContext.Provider value={{isLogedIn, setIsLogedIn, userObj, setUserObj}}>
-      {isLogedIn && <SideBar/>}
+    <StyledContainer isToken={isToken}>
+      <UserContext.Provider value={{isToken, setIsToken, userObj, setUserObj}}>
+      {token && <SideBar token={token}/>}
       <div className="main-content">
         <Switch>
           <Route path="/login">

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import FetchKit from '../data/fetchKit'
 import {useHistory} from 'react-router-dom'
 import { StyledCreateForm } from '../Style/StyledForms'
@@ -6,11 +6,20 @@ import Button from './Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBuilding, faCashRegister, faChargingStation, faMailBulk, faPhoneAlt, faSitemap } from '@fortawesome/free-solid-svg-icons'
 import { faFirefoxBrowser, faMonero, faVuejs } from '@fortawesome/free-brands-svg-icons'
+import {UserContext} from '../contexts/UserContext'
 
 
 export default function CreateCostumerForm() {
     const [formData, setFormData ]= useState({})
     const history = useHistory()
+    const {setIsToken, isToken} = useContext(UserContext)
+
+    useEffect(()=>{
+        if(!localStorage.getItem("USERTOKEN")){
+            history.push("/login")
+        }
+    },[])
+
 
     function handleOnChange(e){
         setFormData( {...formData, [e.target.name]: e.target.value})

@@ -12,15 +12,19 @@ import Button from './Button'
 
 export default function LoginForm() {
     const history = useHistory()
-    const { setIsLogedIn, setUserObj } = useContext(UserContext)
+    const {setIsToken, isToken, setUserObj} = useContext(UserContext)
 
 
-    useEffect(()=>{
+    useEffect(()=>{ 
+        if(localStorage.getItem("USERTOKEN")){
+            setIsToken(true)
+            history.push("/homePage")
+        }
+        else{
+            setIsToken(false)
+        }
         
-        localStorage.setItem("isLogedIn", false) 
-        /* if(localStorage.getItem("USERTOKEN")){ history.push("/homepage")} */
-        
-    }, [setIsLogedIn])
+    }, [setIsToken])
     
     const [formData, setFormData] = useState({
         email: "kevin.basele@yh.nackademin.se", 
@@ -43,26 +47,14 @@ export default function LoginForm() {
         .then(res => res.json())
         .then(data =>{
             localStorage.setItem("USERTOKEN", data.token)
-            setIsLogedIn(true)  
-            FetchKit.userDetailFetch()
-            .then(res => res.json())
-            .then(objData => {
-                setUserObj(objData)
-                console.log(objData)
-            })
-            history.push("/homepage");
+            setIsToken(true)  
             
+            history.push("/homepage");            
         })
-    }
-
-    function onClick (){
-         if(localStorage.getItem("USERTOKEN")) console.log("fun") 
-         console.log("hej")
     }
     
     return (
         <div>
-            <button onClick={localStorage.getItem("USERTOKEN") && onClick}>hej</button>
             <StyledLogInForm  onSubmit={handleOnSubmit}>
                 <div>
                     <span><FontAwesomeIcon icon={faUser}/></span>

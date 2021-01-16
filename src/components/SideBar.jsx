@@ -1,12 +1,23 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import { StyledSideBar } from '../Style/StyledSideBar'
 import Button from './Button'
 import {UserContext} from '../contexts/UserContext'
+import FetchKit from '../data/fetchKit'
 
 
 export default function SideBar() {
-    const {userObj} = useContext(UserContext)
+    const {userObj, setUserObj} = useContext(UserContext)
+
+    useEffect(() => {
+            FetchKit.userDetailFetch()
+            .then(res => res.json())
+            .then(objData => {
+                setUserObj(objData)
+                console.log(objData)
+            })
+    }, [])
+    
 
     return (
         <StyledSideBar>
