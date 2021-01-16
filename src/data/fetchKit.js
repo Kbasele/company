@@ -30,17 +30,23 @@ export default class FetchKit {
         })
     }
     
-    static getAllCostumersFetch(){
+    static getAllCostumersFetch(token){
         
         return fetch(url + costumers,{
-            headers: headers
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
         })
     }
 
-    static getCostumerItemFetch(id){
+    static getCostumerItemFetch(id, token){
         
         return fetch(`${url}${costumers}${id}/`,{
-            headers: headers
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
         }) 
     }
 
@@ -61,9 +67,12 @@ export default class FetchKit {
         }) 
     }
 
-    static userDetailFetch(){
+    static userDetailFetch(token){
         return fetch(url + user,{
-            headers: headers
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
         })
     }
 

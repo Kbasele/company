@@ -8,9 +8,11 @@ import FetchKit from '../data/fetchKit'
 
 export default function SideBar() {
     const {userObj, setUserObj} = useContext(UserContext)
+    const Token = localStorage.getItem("USERTOKEN")
+
 
     useEffect(() => {
-            FetchKit.userDetailFetch()
+            FetchKit.userDetailFetch(Token)
             .then(res => res.json())
             .then(objData => {
                 setUserObj(objData)

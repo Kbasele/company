@@ -8,6 +8,8 @@ export default function CustomerDetailPage(props) {
     const history = useHistory()
     const [customerItem, setCustomerItem] = useState(null)
     const customerId = props.match.params.id
+    const Token = localStorage.getItem("USERTOKEN")
+
 
     function deleteCustomerItem(){
         FetchKit.deleteCostumerItemFetch(customerId)
@@ -15,7 +17,7 @@ export default function CustomerDetailPage(props) {
     }
 
     useEffect(()=>{
-        FetchKit.getCostumerItemFetch(customerId)
+        FetchKit.getCostumerItemFetch(customerId, Token)
         .then(res => res.json())
         .then(data => setCustomerItem(data))
     }, [customerId])

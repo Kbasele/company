@@ -16,14 +16,15 @@ export default function CustomerListItem() {
         if(localStorage.getItem("USERTOKEN")){
             setIsToken(true)
 
-            FetchKit.getAllCostumersFetch()
+            FetchKit.getAllCostumersFetch(Token)
             .then(res => res.json())
             .then(data => {
                 setCostumerList(data.results)
+                console.log(data)
             }) 
         }
-    },)
-
+    },[])
+    
     return (
         <StyledDiv>
             { costumerList ? 

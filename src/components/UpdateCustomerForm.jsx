@@ -14,6 +14,10 @@ export default function UpdateCustomerForm({props}) {
     const history = useHistory()
     const customerId = props.match.params.id
 
+    useEffect(()=>{
+        if(!localStorage.getItem("USERTOKEN")) history.push("/login")
+    }, [])
+
     function handleOnChange(e){
         setFormData( {...formData, [e.target.name]: e.target.value})
     }

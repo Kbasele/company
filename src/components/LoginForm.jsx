@@ -48,7 +48,6 @@ export default function LoginForm() {
         .then(data =>{
             localStorage.setItem("USERTOKEN", data.token)
             setIsToken(true)  
-            
             history.push("/homepage");            
         })
     }
